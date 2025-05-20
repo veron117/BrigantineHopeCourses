@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет - Обучение "Бригантина надежды"</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --success: #4cc9f0;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            max-width: 800px;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--gray);
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            padding-bottom: 60px;
+        }
+
+        header h1 {
+            color: var(--white);
+            margin: 0;
+            font-size: 2.8rem;
+            background: none;
+            -webkit-background-clip: initial;
+            background-clip: initial;
+        }
+
+        header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 10px auto 0;
+        }
+
+        .profile-icon {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 1.8rem;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-icon:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        /* Navigation Styles */
+        nav {
+            background-color: var(--white);
+            color: var(--dark);
+            padding: 15px 0;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            padding: 5px 0;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+            padding-top: 50px;
+        }
+
+        footer p {
+            color: var(--white);
+        }
+
+        /* Profile Section */
+        .profile-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .profile-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid rgba(72, 149, 239, 0.2);
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .profile-position {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .profile-details {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .profile-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .profile-detail i {
+            width: 24px;
+            color: var(--accent);
+            margin-right: 10px;
+        }
+
+        /* Courses Section */
+        .courses-section {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .course-tabs {
+            display: flex;
+            border-bottom: 2px solid #f1f3f5;
+            margin-bottom: 25px;
+        }
+
+        .course-tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--gray);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .course-tab.active {
+            color: var(--primary);
+        }
+
+        .course-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .course-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--accent);
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .course-progress {
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #f1f3f5;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 4px;
+            transition: width 0.6s ease;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .course-completed {
+            display: inline-block;
+            background: rgba(76, 201, 240, 0.1);
+            color: var(--success);
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .course-date {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        /* Button Styles */
+        .button {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: var(--white);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .button:hover {
+            background: linear-gradient(90deg, var(--primary-dark), var(--accent));
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        .button:active {
+            transform: translateY(1px);
+        }
+
+        .button-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        .button-outline:hover {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary-dark);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 2rem;
+                padding: 0 20px;
+            }
+
+            header p {
+                padding: 0 20px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .profile-icon {
+                top: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .course-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="hero-content">
+            <h1>Система обучения ПРООМИ "Бригантина надежды"</h1>
+            <p>Ваш путь к профессиональному развитию</p>
+        </div>
+        <a href="file:///E:/4%20курс/ПП%2009.01/сайт/личный%20кабинет.html" class="profile-icon">
+            <i class="fas fa-user"></i>
+        </a>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="file:///E:/4%20курс/ПП%2009.01/сайт/главная.html">Главная</a></li>
+            <li><a href="file:///E:/4%20курс/ПП%2009.01/сайт/курсы.html">Курсы</a></li>
+            <li><a href="file:///E:/4%20курс/ПП%2009.01/сайт/расписание.html">Расписание</a></li>
+            <li><a href="file:///E:/4%20курс/ПП%2009.01/сайт/контакты.html">Контакты</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Личный кабинет</h2>
+
+        <div class="profile-section">
+            <!-- Profile Card -->
+            <div class="profile-card">
+                <img src="https://ui-avatars.com/api/?name=Иван+Иванов&background=4361ee&color=fff&size=120"
+                    alt="Аватар" class="profile-avatar">
+                <div class="profile-name">Иван Иванов</div>
+                <div class="profile-position">Специалист по обучению</div>
+
+                <div class="profile-details">
+                    <div class="profile-detail">
+                        <i class="fas fa-envelope"></i>
+                        <span>ivan.ivanov@example.com</span>
+                    </div>
+                    <div class="profile-detail">
+                        <i class="fas fa-phone"></i>
+                        <span>+7 (123) 456-78-90</span>
+                    </div>
+                    <div class="profile-detail">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Дата регистрации: 15.01.2024</span>
+                    </div>
+                </div>
+
+                <a href="#" class="button button-outline">Редактировать профиль</a>
+            </div>
+
+            <!-- Stats Card -->
+            <div class="profile-card">
+                <h3 style="text-align: left; margin-bottom: 25px;">Ваша активность</h3>
+
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 30px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">3</div>
+                        <div style="color: var(--gray);">Активных курса</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">1</div>
+                        <div style="color: var(--gray);">Завершенных курса</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">12</div>
+                        <div style="color: var(--gray);">Часов обучения</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">75%</div>
+                        <div style="color: var(--gray);">Общий прогресс</div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="font-weight: 600;">Уровень профиля</span>
+                        <span style="color: var(--gray);">Новичок</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30%;"></div>
+                    </div>
+                </div>
+
+                <a href="#" class="button">Мои сертификаты</a>
+            </div>
+        </div>
+
+        <div class="courses-section">
+            <div class="course-tabs">
+                <div class="course-tab active">Все курсы</div>
+                <div class="course-tab">В процессе</div>
+                <div class="course-tab">Завершенные</div>
+                <div class="course-tab">Доступные</div>
+            </div>
+
+            <div class="course-list">
+                <div class="course-card">
+                    <div class="course-title">Основы делопроизводства</div>
+                    <div class="course-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%;"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span>Прогресс</span>
+                            <span>75%</span>
+                        </div>
+                    </div>
+                    <div class="course-date">Последняя активность: 20.05.2025</div>
+                    <a href="#" class="button">Продолжить обучение</a>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-title">Навыки эффективной коммуникации</div>
+                    <div class="course-completed">
+                        <i class="fas fa-check-circle"></i> Завершен
+                    </div>
+                    <div class="course-date">Дата завершения: 15.01.2025</div>
+                    <a href="#" class="button button-outline">Посмотреть сертификат</a>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-title">Оптимизация рабочего времени</div>
+                    <div class="course-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 20%;"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span>Прогресс</span>
+                            <span>20%</span>
+                        </div>
+                    </div>
+                    <div class="course-date">Последняя активность: 10.05.2025</div>
+                    <a href="#" class="button">Продолжить обучение</a>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-title">Управление проектами для начинающих</div>
+                    <div class="course-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 5%;"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span>Прогресс</span>
+                            <span>5%</span>
+                        </div>
+                    </div>
+                    <div class="course-date">Начало: 01.06.2025</div>
+                    <a href="#" class="button">Начать обучение</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 ПРООМИ "Бригантина надежды". Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.course-tab').forEach(tab => {
+            tab.addEventListener('click', function () {
+                document.querySelector('.course-tab.active').classList.remove('active');
+                this.classList.add('active');
+                // Here would be actual tab content switching logic
+                console.log('Switched to tab:', this.textContent);
+            });
+        });
+    </script>
+
+</body>
+
+</html>
