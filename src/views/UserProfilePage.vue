@@ -50,8 +50,8 @@
 						:count-lessons="course.countLessons"
 					/>
 				</div>
-				<div v-else class="flex item-stretch">
-					<h4>Список пуст</h4>
+				<div v-else class="flex items-center justify-center">
+					<el-empty description="Список пуст" />
 				</div>
 			</div>
 		</div>
@@ -65,7 +65,7 @@ import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
 const coursesStore = useCoursesStore()
-const user = computed(()=> authStore.user)
+const user = computed(() => authStore.user)
 
 const favoriteCourses = computed(() => {
 	return coursesStore

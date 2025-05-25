@@ -1,38 +1,51 @@
 <template>
-	<form @submit.prevent="handleSubmit" v-if="!authStore.message">
-		<div>
-			<label for="name">Имя:</label>
-			<input
-				id="name"
+	<ElForm
+		v-if="!authStore.message"
+		@submit.prevent="handleSubmit"
+		labelWidth="auto"
+		labelPosition="top"
+		size="large"
+	>
+		<!-- Имя -->
+		<ElFormItem label="Имя" prop="name" style="margin-bottom: 10px">
+			<ElInput
 				v-model="formData.name"
-				type="text"
 				placeholder="Введите имя"
+				clearable
 				required
 			/>
-		</div>
+		</ElFormItem>
 
-		<div>
-			<label for="job">Работа:</label>
-			<input
-				id="job"
+		<!-- Работа -->
+		<ElFormItem label="Работа" prop="job" style="margin-bottom: 10px">
+			<ElInput
 				v-model="formData.job"
-				type="text"
 				placeholder="Введите должность"
+				clearable
 			/>
-		</div>
+		</ElFormItem>
 
-		<div>
-			<label for="phoneNumber">Телефон:</label>
-			<input
-				id="phoneNumber"
+		<!-- Телефон -->
+		<ElFormItem label="Телефон" prop="phoneNumber" style="margin-bottom: 10px">
+			<ElInput
 				v-model="formData.phoneNumber"
 				type="tel"
 				placeholder="Введите номер телефона"
+				clearable
 			/>
-		</div>
+		</ElFormItem>
 
-		<button type="submit">Сохранить</button>
-	</form>
+		<!-- Кнопка -->
+		<div class="flex items-center justify-between" style="margin-top: 20px">
+			<button
+				type="submit"
+				class="button"
+				style="margin: 10px 0px; padding: 5px 30px"
+			>
+				Сохранить
+			</button>
+		</div>
+	</ElForm>
 	<div v-else>
 		{{ authStore.message }}
 		<button @click="authStore.closeModal()">Хорошо</button>
