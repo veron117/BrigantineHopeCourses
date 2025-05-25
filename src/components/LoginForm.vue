@@ -22,11 +22,8 @@
 			</span>
 		</div>
 
-		<form>
-			<div class="mb-4">
-				<label for="email" class="block text-gray-700 text-sm font-bold mb-2"
-					>Email:</label
-				>
+		<ElForm labelWidth="auto" labelPosition="top" size="large">
+			<ElFormItem label="Email">
 				<input
 					type="email"
 					id="email"
@@ -34,7 +31,7 @@
 					class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 					required
 				/>
-			</div>
+			</ElFormItem>
 
 			<div class="mb-6">
 				<label for="password" class="block text-gray-700 text-sm font-bold mb-2"
@@ -67,15 +64,18 @@
 					Нет аккаунта? Зарегистрироваться
 				</a>
 			</div>
-		</form>
+		</ElForm>
 	</div>
 </template>
 
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import { useAuthStore } from '@/stores/auth'
+import { useCoursesStore } from '@/stores/courses'
+import { ElForm, ElFormItem } from 'element-plus'
 
 const authStore = useAuthStore()
+const coursesStore = useCoursesStore()
 
 const email = ref('')
 const password = ref('')
@@ -88,6 +88,7 @@ const handleLogin = async () => {
 
 	// Если вход успешен и нет ошибки
 	if (authStore.isAuthenticated && !authStore.message) {
+		await coursesStore.setFavorites(authStore.user.favoriteCourses)
 		emit('success') // Излучаем событие 'success'
 	}
 }

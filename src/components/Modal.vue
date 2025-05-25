@@ -3,21 +3,10 @@
 		<div v-if="show" class="modal-mask" @click.self="close">
 			<div class="modal-wrapper">
 				<div class="modal-container">
-					<div class="modal-header">
-						<slot name="header">default header</slot>
-						<button class="modal-close-button" @click="close">&times;</button>
-					</div>
+					<button class="modal-close-button" @click="close">&times;</button>
 
 					<div class="modal-body">
 						<slot name="body">default body</slot>
-					</div>
-
-					<div class="modal-footer">
-						<slot name="footer">
-							<button class="modal-default-button" @click="$emit('close')">
-								OK
-							</button>
-						</slot>
 					</div>
 				</div>
 			</div>
@@ -63,19 +52,15 @@ const close = () => {
 	width: 90%; /* Ширина модального окна */
 	max-width: 500px; /* Максимальная ширина */
 	margin: auto; /* Центрирование по горизонтали */
-	padding: 20px 30px;
+	padding: 0px 20px;
 	background-color: #fff;
 	border-radius: 8px;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
 	transition: all 0.3s ease;
 	font-family: Helvetica, Arial, sans-serif;
 	display: flex;
-	flex-direction: column; /* Содержимое внутри контейнера - flex-столбец */
-}
-
-.modal-header h3 {
-	margin-top: 0;
-	color: #42b983;
+	flex-direction: column;
+	position: relative;
 }
 
 .modal-body {
@@ -112,29 +97,18 @@ const close = () => {
 }
 
 .modal-close-button {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	background: none;
+	position: absolute; /* абсолютное позиционирование внутри .modal */
+	top: -10px; /* отступ сверху */
+	right: 7px; /* отступ справа */
+	background: transparent;
 	border: none;
-	font-size: 24px;
+	font-size: 34px;
+	height: 20px;
 	cursor: pointer;
-	color: #aaa;
+	color: var(--primary-dark);
 }
 
 .modal-close-button:hover {
-	color: #777;
-}
-
-.modal-header {
-	position: relative; /* Для позиционирования кнопки закрытия */
-	padding-bottom: 15px; /* Отступ снизу заголовка */
-	border-bottom: 1px solid #eee; /* Разделитель */
-}
-
-.modal-footer {
-	padding-top: 15px; /* Отступ сверху футера */
-	border-top: 1px solid #eee; /* Разделитель */
-	text-align: right; /* Выравнивание содержимого футера */
+	color: var(--secondary);
 }
 </style>

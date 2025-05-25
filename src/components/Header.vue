@@ -1,27 +1,40 @@
 <template>
 	<div>
-		<header>
-			<div class="hero-content">
-				<h1>Система обучения ПРООМИ "Бригантина надежды"</h1>
-				<p>Ваш путь к профессиональному развитию</p>
+		<div class="header">
+			<!--Content before waves-->
+			<div class="inner-header flex" style="height: auto" v-resize="onResize">
+				<div class="hero-content">
+					<h1>Система обучения ПРООМИ "Бригантина надежды"</h1>
+					<p>Ваш путь к профессиональному развитию</p>
+				</div>
+				<div class="profile-icon">
+					<template v-if="!authStore.isAuthenticated">
+						<div class="signInOut">
+							<a @click="authStore.openLoginModal()">Войти</a>
+							<a @click="authStore.openRegisterModal()">Регистрация</a>
+						</div>
+					</template>
+					<template v-else>
+						<el-dropdown placement="bottom" style="cursor: pointer">
+							<el-avatar size="large" src="profileAvatar.png" />
+							<template #dropdown>
+								<el-dropdown-menu>
+									<el-dropdown-item>
+										<router-link to="/profile">Личный кабинет</router-link>
+									</el-dropdown-item>
+									<el-dropdown-item divided>
+										<div style="display: flex; justify-content: center">
+											<a @click="handleLogout">Выход</a>
+										</div>
+									</el-dropdown-item>
+								</el-dropdown-menu>
+							</template>
+						</el-dropdown>
+					</template>
+				</div>
 			</div>
-			<template v-if="!authStore.isAuthenticated">
-				<button @click="authStore.openLoginModal()">Войти</button>
-				<button @click="authStore.openRegisterModal()">Регистрация</button>
-			</template>
-			<template v-else>
-				<router-link to="/profile">
-					<span class="mr-4"
-						>Привет, {{ authStore.user?.name || 'Пользователь' }}!</span
-					>
-				</router-link>
-				<button
-					@click="handleLogout"
-					class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded"
-				>
-					Выход
-				</button>
-			</template>
+
+			<!--Waves Container-->
 			<div>
 				<svg
 					class="waves"
@@ -60,7 +73,8 @@
 					</g>
 				</svg>
 			</div>
-		</header>
+			<!--Waves end-->
+		</div>
 		<nav>
 			<ul>
 				<li><router-link to="/">Главная</router-link></li>
@@ -89,15 +103,48 @@ const handleLogout = async () => {
 </script>
 
 <style scoped>
-header {
-	background: linear-gradient(135deg, var(--primary), var(--secondary));
-	color: var(--white);
-	padding: 30px 0;
-	text-align: center;
-	box-shadow: var(--shadow);
+.header {
 	position: relative;
-	clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-	padding-bottom: 60px;
+	text-align: center;
+	background: linear-gradient(
+		60deg,
+		rgba(13, 71, 161, 1) 35%,
+		rgba(21, 101, 192, 1) 50%,
+		rgba(25, 118, 210, 1) 75%,
+		rgba(30, 136, 229, 1) 100%
+	);
+	color: white;
+	padding-top: 56px;
+}
+
+.inner-header {
+	width: 100%;
+	margin: 0;
+	padding: 24px 0;
+}
+
+.flex {
+	/*Flexbox for containers*/
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.waves {
+	position: relative;
+	width: 100%;
+	height: 15vh;
+	margin-bottom: -7px; /*Fix for safari gap*/
+	min-height: 100px;
+	max-height: 150px;
+}
+
+.content {
+	position: relative;
+	height: 20vh;
+	text-align: center;
+	background-color: white;
 }
 
 h1 {
@@ -119,22 +166,20 @@ p {
 	position: absolute;
 	top: 30px;
 	right: 30px;
-	font-size: 1.8rem;
-	color: var(--white);
-	text-decoration: none;
-	transition: var(--transition);
-	background: rgba(255, 255, 255, 0.2);
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
-.profile-icon:hover {
-	background: rgba(255, 255, 255, 0.3);
-	transform: scale(1.1);
+.signInOut {
+	display: flex;
+	justify-content: space-between;
+	width: 180px;
+}
+
+.signInOut a {
+	cursor: pointer;
+	color: white;
 }
 
 nav {
@@ -145,7 +190,7 @@ nav {
 	box-shadow: var(--shadow);
 }
 
-ul {
+nav ul {
 	list-style: none;
 	padding: 0;
 	margin: 0;
@@ -154,7 +199,7 @@ ul {
 	gap: 30px;
 }
 
-li {
+nav ul li {
 	position: relative;
 }
 

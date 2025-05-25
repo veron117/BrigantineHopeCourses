@@ -10,7 +10,11 @@ export const useCoursesStore = defineStore('courses', {
 		loading: false,
 		error: null
 	}),
-	persist: true,
+	persist: {
+		key: 'courses',
+		storage: localStorage,
+		paths: ['favoriteCourseIds', 'courses']
+	},
 	actions: {
 		async fetchCourses() {
 			this.loading = true
@@ -57,7 +61,7 @@ export const useCoursesStore = defineStore('courses', {
 			const userId = JSON.parse(localStorage.getItem('auth') || '{}')?.user?.id
 			const favoriteCourses = JSON.stringify(this.favoriteCourseIds)
 
-			// localStorage.setItem('favoriteCourses', favoriteCourses)
+
 			saveFavoriteCourses(userId, favoriteCourses)
 		},
 		isFavorite(courseId) {
@@ -65,7 +69,6 @@ export const useCoursesStore = defineStore('courses', {
 		},
 		clearFavorites() {
 			this.favoriteCourseIds = []
-			localStorage.removeItem('favoriteCourses')
 		}
 	}
 })

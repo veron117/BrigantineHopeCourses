@@ -5,6 +5,8 @@ import App from './App.vue'
 import router from './router' // Импортируем настроенный роутер
 import { createPinia } from 'pinia' // Импортируем Pinia
 import { createPersistedState } from 'pinia-plugin-persistedstate'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 import './assets/main.css' // Импортируем базовые стили (включая Tailwind)
 
 // Импортируем наш Pinia Store для аутентификации
@@ -18,6 +20,7 @@ pinia.use(createPersistedState())
 
 // Используем Pinia
 app.use(pinia)
+app.use(ElementPlus)
 
 // Инициализируем Pinia Store для аутентификации
 // Это важно сделать после app.use(pinia), но до app.mount()

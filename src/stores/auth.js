@@ -70,11 +70,9 @@ export const useAuthStore = defineStore('auth', {
 				favoriteCourses: user.favoriteCourses,
 				createdAt: user.createdAt
 			}
-
 			this.token = user.token
 			this.isAuthenticated = true
 			localStorage.setItem('auth_token', this.token)
-
 			this.closeModal()
 
 			this.loading = false

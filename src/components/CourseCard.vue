@@ -31,12 +31,13 @@ import { onMounted } from 'vue'
 const authStore = useAuthStore()
 const coursesStore = useCoursesStore()
 
-onMounted(() => {
+onMounted(async () => {
 	if (authStore.isAuthenticated) {
-		authStore.fetchUser()
-		coursesStore.setFavorites(authStore.user?.favoriteCourses)
+		await authStore.fetchUser()
+		if (authStore.user?.favoriteCourses) {
+			coursesStore.setFavorites(authStore.user.favoriteCourses)
+		}
 	}
-	console.log(authStore.user)
 })
 
 defineProps(['id', 'title', 'duration', 'countLessons', 'annotation'])

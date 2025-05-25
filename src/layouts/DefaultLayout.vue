@@ -7,13 +7,6 @@
 		</main>
 
 		<Modal :show="authStore.isModalOpen" @close="authStore.closeModal()">
-			<template #header>
-				<h3 v-if="authStore.modalType !== 'userEdit'">
-					{{ authStore.modalType === 'login' ? 'Вход' : 'Регистрация' }}
-				</h3>
-				<h3 v-else>Редактирование профиля</h3>
-			</template>
-
 			<template #body>
 				<LoginForm
 					v-if="authStore.modalType === 'login'"
@@ -30,8 +23,6 @@
 					@success="authStore.closeModal"
 				/>
 			</template>
-
-			<template #footer> </template>
 		</Modal>
 
 		<Footer />
