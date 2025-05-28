@@ -65,6 +65,15 @@ const filteredCourses = computed(() => {
 	gap: 30px;
 	margin-top: 20px;
 }
+
+@media (max-width: 400px) {
+	.course-list {
+		grid-template-columns: 1fr;
+		gap: 15px;
+		margin-top: 15px;
+		padding: 0 8px;
+	}
+}
 .search-filter {
 	width: 100%;
 	max-width: 800px;
@@ -94,6 +103,24 @@ const filteredCourses = computed(() => {
 	outline: none;
 	background-color: var(--white);
 	box-shadow: 0 0 0 3px rgba(72, 149, 239, 0.2);
+}
+
+@media (max-width: 400px) {
+	.search-filter {
+		margin-bottom: 20px;
+		padding: 0 8px;
+	}
+	
+	.search-box input {
+		padding: 12px 16px 12px 40px;
+		font-size: 0.9rem;
+		border-radius: 25px;
+	}
+	
+	.search-box i {
+		left: 15px;
+		font-size: 0.9rem;
+	}
 }
 
 .search-box i {

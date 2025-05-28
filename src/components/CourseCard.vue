@@ -55,6 +55,17 @@ defineProps(['id', 'title', 'duration', 'countLessons', 'annotation'])
 	border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+@media (max-width: 400px) {
+	.course-item {
+		padding: 16px;
+		border-radius: 8px;
+		margin: 0;
+		max-width: 100%;
+		width: 100%;
+		box-sizing: border-box;
+	}
+}
+
 .course-item:hover {
 	transform: translateY(-10px);
 	box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
@@ -90,6 +101,38 @@ defineProps(['id', 'title', 'duration', 'countLessons', 'annotation'])
 	margin-right: 20px;
 	display: flex;
 	align-items: center;
+}
+
+@media (max-width: 400px) {
+	.course-item h3 {
+		font-size: 1.2rem;
+		margin-bottom: 10px;
+		line-height: 1.3;
+	}
+	
+	.course-item p {
+		margin-bottom: 15px;
+		font-size: 0.9rem;
+		line-height: 1.4;
+	}
+	
+	.course-meta {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+		margin-bottom: 20px;
+		font-size: 0.85rem;
+	}
+	
+	.course-meta span {
+		margin-right: 0;
+		margin-bottom: 5px;
+	}
+	
+	.course-meta i {
+		margin-right: 6px;
+		font-size: 0.8rem;
+	}
 }
 
 .course-badge {

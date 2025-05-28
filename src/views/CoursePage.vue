@@ -10,7 +10,10 @@
 					/>
 					<h3 class="instructor-name">Алишер Избасаров</h3>
 					<p class="instructor-title">Председатель правления органпизации</p>
-					<p class="instructor-bio">
+					<p
+						class="instructor-bio"
+						data-full-text="Является руководителем ПРООМИ 'Бригантины надежды' более 25 лет. Является многократным участником региональных мероприятий посвященных защите прав и интересов людей с ограниченными возможностями. Состоит в совете при Минздраве"
+					>
 						Является руководителем ПРООМИ "Бригантины надежды" более 25 лет.
 						Является многократным участником региональных мероприятий
 						посвященных защите прав и интересов людей с ограниченными
@@ -53,6 +56,8 @@
 				</div>
 			</section>
 		</div>
+
+		<div class="section-divider"></div>
 
 		<section class="course-content">
 			<div class="modules-section">
@@ -112,6 +117,23 @@ const course = coursesStore.getCourseById(route.params.id)
 	text-align: center;
 }
 
+@media (min-width: 640px) and (max-width: 850px) {
+	.instructor-section {
+		height: 100%;
+	}
+}
+
+@media (max-width: 415px) {
+	.instructor-card {
+		padding: 20px 16px;
+		margin: 0 8px 20px 8px;
+		border-radius: 8px;
+		max-width: calc(100% - 16px);
+		box-sizing: border-box;
+		display: block;
+	}
+}
+
 .instructor-avatar {
 	width: 120px;
 	height: 120px;
@@ -119,6 +141,15 @@ const course = coursesStore.getCourseById(route.params.id)
 	object-fit: cover;
 	border: 5px solid rgba(72, 149, 239, 0.2);
 	margin: 0 auto 20px;
+}
+
+@media (max-width: 415px) {
+	.instructor-avatar {
+		width: 80px;
+		height: 80px;
+		border-width: 3px;
+		margin-bottom: 15px;
+	}
 }
 
 .instructor-name {
@@ -136,12 +167,97 @@ const course = coursesStore.getCourseById(route.params.id)
 .instructor-bio {
 	line-height: 1.8;
 	margin-bottom: 20px;
+	position: relative;
+}
+
+/* Адаптивное поведение для instructor-bio */
+@media (min-width: 640px) and (max-width: 850px) {
+	.instructor-card {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.instructor-bio {
+		cursor: pointer;
+		font-size: 0;
+		line-height: 0;
+		margin-bottom: 20px;
+		position: relative;
+	}
+
+	.instructor-bio::before {
+		content: 'Подробнее';
+		display: block;
+		color: var(--primary);
+		font-weight: 600;
+		text-decoration: underline;
+		font-size: 1rem;
+		line-height: 1.5;
+		position: relative;
+		z-index: 2;
+	}
+
+	.instructor-bio::after {
+		content: attr(data-full-text);
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+		background: var(--white);
+		border: 1px solid #e9ecef;
+		border-radius: 12px;
+		padding: 15px;
+		box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+		width: 280px;
+		font-size: 0.9rem;
+		line-height: 1.6;
+		color: var(--dark);
+		z-index: 1000;
+		visibility: hidden;
+		opacity: 0;
+		transition: var(--transition);
+		margin-top: 10px;
+		white-space: normal;
+	}
+
+	.instructor-bio:hover::after {
+		visibility: visible;
+		opacity: 1;
+	}
+}
+
+@media (max-width: 415px) {
+	.instructor-name {
+		font-size: 1.1rem;
+		margin-bottom: 8px;
+	}
+
+	.instructor-title {
+		font-size: 0.9rem;
+		margin-bottom: 15px;
+	}
+
+	.instructor-bio {
+		font-size: 0.9rem;
+		line-height: 1.6;
+		margin-bottom: 15px;
+	}
 }
 
 .social-links {
 	display: flex;
 	justify-content: center;
 	gap: 15px;
+}
+
+/* Разделительная линия */
+.section-divider {
+	width: 100%;
+	height: 1px;
+	background-color: #e9ecef;
+	margin: 20px 0 10px 0;
 }
 .course-hero {
 	display: inline-block;
@@ -160,12 +276,23 @@ const course = coursesStore.getCourseById(route.params.id)
 	padding: 20px;
 }
 
+@media (max-width: 415px) {
+	.course-hero {
+		margin-bottom: 30px;
+	}
+
+	.course-info {
+		padding: 16px 8px;
+	}
+}
+
 .course-title {
-	font-size: 2.2rem;
+	font-size: clamp(1.5rem, 4vw, 2.2rem);
 	font-weight: 700;
 	color: var(--primary);
 	margin-bottom: 20px;
 	font-family: 'Montserrat', sans-serif;
+	line-height: 1.2;
 }
 
 .course-meta {
@@ -244,6 +371,21 @@ const course = coursesStore.getCourseById(route.params.id)
 	border-radius: 12px;
 	padding: 70px;
 	box-shadow: var(--shadow);
+}
+
+@media (max-width: 415px) {
+	.course-content {
+		width: 100%;
+		padding: 0 8px;
+	}
+
+	.modules-section {
+		padding: 20px 16px;
+		border-radius: 8px;
+		margin: 0;
+		max-width: 100%;
+		box-sizing: border-box;
+	}
 }
 
 .section-title {
