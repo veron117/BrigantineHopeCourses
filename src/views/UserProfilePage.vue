@@ -3,7 +3,6 @@
 		<h2>Личный кабинет</h2>
 
 		<div class="profile-section">
-			<!-- Profile Card -->
 			<div class="profile-card">
 				<img
 					src="https://ui-avatars.com/api/?name=Иван+Иванов&background=4361ee&color=fff&size=120"
@@ -24,7 +23,7 @@
 					</div>
 					<div class="profile-detail">
 						<i class="fas fa-calendar-alt"></i>
-						<span>{{ formatDate(user.createdAt) }}</span>
+						<span>Дата регистрации:{{ formatDate(user.createdAt) }}</span>
 					</div>
 				</div>
 
@@ -36,7 +35,6 @@
 				>
 			</div>
 
-			<!-- Stats Card -->
 			<div class="favorite-courses-list">
 				<h3 style="text-align: center; margin-bottom: 25px">Избранные курсы</h3>
 				<div class="course-list" v-if="favoriteCourses.length > 0">

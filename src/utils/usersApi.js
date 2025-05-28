@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'https://682209c9b342dce8004cda66.mockapi.io/api/v1/users'
+const API_URL = 'https://6825d9cc397e48c91313dc45.mockapi.io/api/v1/users'
 function isValidEmail(email) {
 	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 	return emailRegex.test(email)

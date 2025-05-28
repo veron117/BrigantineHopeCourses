@@ -11,8 +11,8 @@
 		<h3>{{ title }}</h3>
 		<p>{{ annotation }}</p>
 		<div class="course-meta">
-			<span><i class="far fa-clock"></i>{{ duration }}</span>
-			<span><i class="fa fa-book"></i>{{ countLessons }}</span>
+			<span><i class="far fa-clock"></i>Длительность: {{ duration }} ч.</span>
+			<span><i class="fa fa-book"></i>Уроков: {{ countLessons }}</span>
 		</div>
 		<router-link
 			:to="`/courses/${id}`"

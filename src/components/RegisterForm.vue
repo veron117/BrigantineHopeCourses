@@ -1,82 +1,55 @@
 <template>
 	<div>
-		<ElForm labelWidth="auto" labelPosition="top" size="large">
+		<ElForm
+			ref="formRef"
+			:model="form"
+			:rules="rules"
+			label-width="auto"
+			label-position="top"
+			size="large"
+		>
 			<!-- Email -->
-			<ElFormItem
-				prop="email"
-				label="Email"
-				:rules="[
-					{
-						required: true,
-						message: 'Пожалуйста, введите Email',
-						trigger: 'blur'
-					},
-					{
-						type: 'email',
-						message: 'Неверный формат',
-						trigger: ['blur', 'change']
-					}
-				]"
-			>
-				<ElInput v-model="email" placeholder="Email..." clearable />
+			<ElFormItem prop="email" label="Email">
+				<ElInput v-model="form.email" placeholder="Email..." clearable />
 			</ElFormItem>
 
 			<!-- Имя -->
-			<ElFormItem
-				label="ФИО"
-				prop="name"
-				:rules="[
-					{
-						required: true,
-						message: 'Пожалуйста, введите ФИО',
-						trigger: 'blur'
-					}
-				]"
-			>
-				<ElInput v-model="name" placeholder="Введите ФИО..." clearable />
+			<ElFormItem prop="name" label="ФИО">
+				<ElInput v-model="form.name" placeholder="Введите ФИО..." clearable />
 			</ElFormItem>
 
 			<!-- Пароль -->
-			<ElFormItem label="Пароль" prop="password">
+			<ElFormItem prop="password" label="Пароль">
 				<ElInput
 					type="password"
-					v-model="password"
+					v-model="form.password"
 					placeholder="Пароль..."
 					clearable
 				/>
 			</ElFormItem>
 
 			<!-- Подтверждение пароля -->
-			<ElFormItem label="Подтверждение пароля" prop="password_confirmation">
+			<ElFormItem prop="password_confirmation" label="Подтверждение пароля">
 				<ElInput
 					type="password"
-					v-model="password_confirmation"
+					v-model="form.password_confirmation"
 					placeholder="Подтвердите пароль..."
 					clearable
 				/>
 			</ElFormItem>
 
 			<!-- Номер телефона -->
-			<ElFormItem
-				label="Номер телефона"
-				prop="phoneNumber"
-				:rules="[
-					{
-						required: true,
-						message: 'Пожалуйста, введите номер телефона',
-						trigger: 'blur'
-					}
-				]"
-			>
+			<ElFormItem prop="phoneNumber" label="Номер телефона">
 				<ElInput
-					v-model="phoneNumber"
+					v-model="form.phoneNumber"
 					placeholder="Введите номер..."
 					clearable
 				/>
 			</ElFormItem>
+
 			<!-- Должность -->
-			<ElFormItem label="Должность" prop="job" style="margin-bottom: 10px">
-				<ElInput v-model="job" placeholder="Должность..." clearable />
+			<ElFormItem prop="job" label="Должность" style="margin-bottom: 10px">
+				<ElInput v-model="form.job" placeholder="Должность..." clearable />
 			</ElFormItem>
 
 			<!-- Сообщение об ошибке -->
@@ -90,7 +63,7 @@
 				}}</span>
 				<span class="absolute top-0 bottom-0 right-0 p-4">
 					<svg
-						@click="authStore.clearError()"
+						@click="authStore.clearError"
 						class="fill-current h-6 w-6 text-red-500 cursor-pointer"
 						role="button"
 						xmlns="http://www.w3.org/2000/svg"
@@ -129,76 +102,109 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
+import { ElForm, ElFormItem, ElInput } from 'element-plus'
 
 const authStore = useAuthStore()
 
-const name = ref('')
-const email = ref('')
-const job = ref('')
-const phoneNumber = ref('')
-const password = ref('')
-const password_confirmation = ref('')
-
-// Определяем события, которые компонент может излучать
-const emit = defineEmits(['success', 'switch-to-login'])
-
-const handleRegister = async () => {
-	// Простая валидация паролей на совпадение
-	if (password.value !== password_confirmation.value) {
-		authStore.setError('Пароли не совпадают.')
-		return
-	}
-
-	await authStore.register({
-		name: name.value,
-		email: email.value,
-		job: job.value,
-		phoneNumber: phoneNumber.value,
-		password: password.value,
-		token: generateToken()
-	})
-
-	// Если регистрация успешна (предполагаем, что register экшен не устанавливает ошибку при успехе)
-	if (!authStore.message) {
-		emit('success') // Излучаем событие 'success'
-	}
-}
-
-// Очищаем ошибку и поля формы при монтировании (или при открытии модального окна)
-onMounted(() => {
-	authStore.clearError()
-	name.value = ''
-	email.value = ''
-	job.value = ''
-	phoneNumber.value = ''
-	password.value = ''
-	password_confirmation.value = ''
+// Реактивная модель формы
+const form = ref({
+	email: '',
+	name: '',
+	password: '',
+	password_confirmation: '',
+	phoneNumber: '',
+	job: ''
 })
 
-// watch(
-// 	() => props.show,
-// 	newVal => {
-// 		if (newVal) {
-// 			authStore.clearError()
-// 			name.value = ''
-// 			email.value = ''
-// 			password.value = ''
-// 			password_confirmation.value = ''
-// 		}
-// 	}
-// )
+// Ссылка на форму для вызова validate()
+const formRef = ref(null)
+
+// Правила валидации
+const rules = {
+	email: [
+		{ required: true, message: 'Пожалуйста, введите Email', trigger: 'blur' },
+		{ type: 'email', message: 'Неверный формат', trigger: ['blur', 'change'] }
+	],
+	name: [
+		{ required: true, message: 'Пожалуйста, введите ФИО', trigger: 'blur' }
+	],
+	password: [
+		{ required: true, message: 'Пожалуйста, введите пароль', trigger: 'blur' }
+	],
+	password_confirmation: [
+		{
+			required: true,
+			message: 'Пожалуйста, подтвердите пароль',
+			trigger: 'blur'
+		},
+		{
+			validator: (rule, value) => {
+				if (value !== form.value.password) {
+					return new Error('Пароли должны совпадать')
+				}
+				return true
+			},
+			trigger: 'blur'
+		}
+	],
+	phoneNumber: [
+		{
+			required: true,
+			message: 'Пожалуйста, введите номер телефона',
+			trigger: 'blur'
+		},
+		{
+			validator: (rule, value) => {
+				const digitsRegex = /^[\d\s\-\.\(\)]*$/
+				if (!value) {
+					return new Error('Пожалуйста, введите номер телефона')
+				}
+				if (!digitsRegex.test(value)) {
+					return new Error('Некорректный формат номера телефона РФ')
+				}
+				return true
+			},
+			trigger: 'blur'
+		}
+	],
+	job: []
+}
+
+// Обработка регистрации
+const handleRegister = () => {
+	formRef.value.validate(async valid => {
+		if (valid) {
+			await authStore.register({
+				name: form.value.name,
+				email: form.value.email,
+				job: form.value.job,
+				phoneNumber: form.value.phoneNumber,
+				password: form.value.password,
+				token: generateToken()
+			})
+
+			// Если регистрация прошла успешно (без ошибок)
+			if (!authStore.message) {
+				// Можно эмитировать событие или выполнить другую логику
+				// например, закрыть модальное окно или перейти на другую страницу
+				$emit('success')
+			}
+		} else {
+			console.log('Ошибка валидации')
+		}
+	})
+}
+
+// Генерация случайного токена
 function generateToken() {
 	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-	const tokenLength = 30 // длина токена
+	const tokenLength = 30
 	let token = ''
-
 	for (let i = 0; i < tokenLength; i++) {
-		const randomIndex = Math.floor(Math.random() * chars.length)
-		token += chars.charAt(randomIndex)
+		token += chars.charAt(Math.floor(Math.random() * chars.length))
 	}
-
 	return token
 }
 </script>
