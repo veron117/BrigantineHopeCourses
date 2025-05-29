@@ -112,10 +112,11 @@ export const useAuthStore = defineStore('auth', {
 
 			if (status === 200) {
 				this.user = user
-				this.message = 'Данные пользователя успешно обновлены!'
 			}
 
 			this.loading = false
+
+			return status
 		},
 
 		async logout() {

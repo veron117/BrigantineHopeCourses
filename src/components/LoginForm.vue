@@ -1,17 +1,7 @@
 <template>
 	<div>
 		<ElForm labelWidth="auto" labelPosition="top" size="large">
-			<ElFormItem
-				prop="email"
-				label="Email"
-				:rules="[
-					{
-						type: 'email',
-						message: 'Неверный формат',
-						trigger: ['blur', 'change']
-					}
-				]"
-			>
+			<ElFormItem prop="email" label="Email" :rules="emailRules">
 				<ElInput
 					v-model="email"
 					placeholder="Логин...."
@@ -28,9 +18,9 @@
 				class="bg-red-100 border border-red-400 text-red-700 rounded relative mb-4"
 				role="alert"
 			>
-				<span class="block sm:inline" style="margin-left: 15px">{{
-					authStore.message
-				}}</span>
+				<span class="block sm:inline" style="margin-left: 15px"
+					>{{ authStore.message }}
+				</span>
 				<span class="absolute top-0 bottom-0 right-0 p-4">
 					<svg
 						@click="authStore.clearError()"
@@ -73,10 +63,16 @@
 import { ref, onMounted, watch } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useCoursesStore } from '@/stores/courses'
-import { ElForm, ElFormItem, ElInput } from 'element-plus'
 
 const authStore = useAuthStore()
 const coursesStore = useCoursesStore()
+const emailRules = [
+	{
+		type: 'email',
+		message: 'Неверный формат',
+		trigger: ['blur', 'change']
+	}
+]
 
 const email = ref('')
 const password = ref('')

@@ -2,8 +2,8 @@
 	<div class="container">
 		<h2>Личный кабинет</h2>
 
-		<div class="profile-section">
-			<div class="profile-card">
+		<div class="profile-section flex flex-col sm:flex-row">
+			<div class="profile-card md:self-start">
 				<img
 					src="https://ui-avatars.com/api/?name=Иван+Иванов&background=4361ee&color=fff&size=120"
 					alt="Аватар"
@@ -35,7 +35,7 @@
 				>
 			</div>
 
-			<div class="favorite-courses-list">
+			<div class="flex flex-col grow">
 				<h3 style="text-align: center; margin-bottom: 25px">Избранные курсы</h3>
 				<div class="course-list" v-if="favoriteCourses.length > 0">
 					<CourseCard
@@ -132,12 +132,10 @@ p {
 	color: var(--gray);
 }
 .profile-section {
-	display: grid;
-	grid-template-columns: 1fr 2fr;
-	gap: 30px;
 	width: 100%;
 	max-width: 1000px;
 	margin-bottom: 40px;
+	gap: 30px;
 }
 .profile-card {
 	background: var(--white);
@@ -146,6 +144,9 @@ p {
 	box-shadow: var(--shadow);
 	text-align: center;
 	transition: var(--transition);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .profile-card:hover {
@@ -194,8 +195,8 @@ p {
 }
 
 .course-list {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	display: flex;
+	flex-wrap: wrap;
 	gap: 20px;
 }
 

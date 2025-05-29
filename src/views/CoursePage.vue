@@ -9,7 +9,7 @@
 						class="instructor-avatar"
 					/>
 					<h3 class="instructor-name">Алишер Избасаров</h3>
-					<p class="instructor-title">Председатель правления органпизации</p>
+					<p class="instructor-title">Председатель правления организации</p>
 					<p
 						class="instructor-bio"
 						data-full-text="Является руководителем ПРООМИ 'Бригантины надежды' более 25 лет. Является многократным участником региональных мероприятий посвященных защите прав и интересов людей с ограниченными возможностями. Состоит в совете при Минздраве"
@@ -59,39 +59,35 @@
 
 		<div class="section-divider"></div>
 
-		<section class="course-content">
-			<div class="modules-section">
-				<h2 class="section-title">
-					<i class="fas fa-list-ol"></i> Программа курса
-				</h2>
-
-				<div class="module">
-					<div class="module-header">
-						<h3 class="module-title">
-							<i class="fas fa-play-circle"></i> Урок 1: Основы коммуникации
-						</h3>
-					</div>
-				</div>
-
-				<div class="module">
-					<div class="module-header">
-						<h3 class="module-title">
-							<i class="fas fa-comments"></i> Урок 2: Деловое общение
-						</h3>
-						<span>1 ч 10 мин</span>
-					</div>
-				</div>
-
-				<div class="module">
-					<div class="module-header">
-						<h3 class="module-title">
-							<i class="fas fa-users"></i> Урок 3: Работа в команде
-						</h3>
-						<span> 45 мин</span>
-					</div>
-				</div>
+		<div class="course-plan">
+			<h1 class="course-plan__title">План курса</h1>
+			<div class="course-plan__content">
+				<el-collapse expand-icon-position="left" accordion>
+					<el-collapse-item
+						v-for="(lesson, index) in lessons"
+						:key="lesson.id"
+						:title="`Урок ${index + 1} : ${lesson.title}`"
+						:name="lesson.id"
+						class="course-plan__item"
+					>
+						<div class="course-plan__description">
+							<div class="flex justify-start">
+								{{ lesson.description }}
+							</div>
+							<div class="flex justify-center">
+								<el-link
+									type="primary"
+									underline="always"
+									:href="lesson.link"
+									style="font-size: 1.2rem"
+									>Перейти к уроку</el-link
+								>
+							</div>
+						</div>
+					</el-collapse-item>
+				</el-collapse>
 			</div>
-		</section>
+		</div>
 	</div>
 	<div v-else class="flex items-center justify-center">
 		<el-empty description="Курс не найден" />
@@ -99,12 +95,20 @@
 </template>
 <script setup>
 import { useCoursesStore } from '@/stores/courses'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const coursesStore = useCoursesStore()
+const courseId = route.params.id
 
-const course = coursesStore.getCourseById(route.params.id)
+const course = coursesStore.getCourseById(courseId)
+
+const lessons = ref([])
+
+onMounted(async () => {
+	lessons.value = await coursesStore.fetchLessons(courseId)
+})
 </script>
 <style scoped>
 /* Instructor Section */
@@ -357,79 +361,28 @@ const course = coursesStore.getCourseById(route.params.id)
 	background: rgba(67, 97, 238, 0.1);
 	color: var(--primary-dark);
 }
-
-/* Course Content */
-.course-content {
-	display: flex;
-	position: relative;
-	width: fit-content;
-	height: fit-content;
+.course-plan {
+	width: 100%;
 }
-
-.modules-section {
-	background: var(--white);
-	border-radius: 12px;
-	padding: 70px;
-	box-shadow: var(--shadow);
-}
-
-@media (max-width: 415px) {
-	.course-content {
-		width: 100%;
-		padding: 0 8px;
-	}
-
-	.modules-section {
-		padding: 20px 16px;
-		border-radius: 8px;
-		margin: 0;
-		max-width: 100%;
-		box-sizing: border-box;
-	}
-}
-
-.section-title {
-	font-size: 1.5rem;
+.course-plan__title {
+	text-align: center;
+	font-size: clamp(1.5rem, 4vw, 2.2rem);
 	font-weight: 700;
 	color: var(--primary);
-	margin-bottom: 25px;
+	margin-bottom: 20px;
 	font-family: 'Montserrat', sans-serif;
-	display: flex;
-	align-items: center;
+	line-height: 1.2;
 }
-
-.section-title i {
-	margin-right: 15px;
+.course-plan__content {
+	padding: 0 10px;
+	width: 100%;
 }
-
-.module {
-	margin-bottom: 25px;
-	border-bottom: 1px solid #f1f3f5;
-	padding-bottom: 20px;
+.course-plan__item :deep(.el-collapse-item__header) {
+	font-weight: bold;
+	font-size: clamp(1rem, 2.5vw, 1.25rem);
 }
-
-.module:last-child {
-	border-bottom: none;
-}
-
-.module-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 15px;
-	cursor: pointer;
-}
-
-.module-title {
-	font-size: 1.2rem;
-	font-weight: 600;
-	color: var(--dark);
-	display: flex;
-	align-items: center;
-}
-
-.module-title i {
-	margin-right: 10px;
-	color: var(--accent);
+.course-plan__description {
+	font-size: clamp(0.875rem, 2vw, 1rem);
+	line-height: 1.6;
 }
 </style>

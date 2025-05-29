@@ -1,6 +1,6 @@
 // stores/courses.js
 import { defineStore } from 'pinia'
-import { getCourses } from '@/utils/coursesApi'
+import { getCourses, getLessons } from '@/utils/coursesApi'
 import { saveFavoriteCourses } from '@/utils/usersApi'
 
 export const useCoursesStore = defineStore('courses', {
@@ -29,6 +29,20 @@ export const useCoursesStore = defineStore('courses', {
 			}
 
 			this.loading = false
+		},
+		async fetchLessons(courseId) {
+			this.loading = true
+			this.error = null
+
+			const { lessons, error } = await getLessons(courseId)
+
+			if (error) {
+				this.error = error
+			}
+
+			this.loading = false
+
+			return lessons
 		},
 		getCourseById(courseId) {
 			return this.courses.find(course => course.id === courseId)
@@ -60,7 +74,6 @@ export const useCoursesStore = defineStore('courses', {
 		saveFavorites() {
 			const userId = JSON.parse(localStorage.getItem('auth') || '{}')?.user?.id
 			const favoriteCourses = JSON.stringify(this.favoriteCourseIds)
-
 
 			saveFavoriteCourses(userId, favoriteCourses)
 		},

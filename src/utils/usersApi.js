@@ -127,12 +127,9 @@ const update = async (userId, data) => {
 
 const saveFavoriteCourses = async (userId, favoriteCourses) => {
 	try {
-		await axios.put(
-			`https://682209c9b342dce8004cda66.mockapi.io/api/v1/users/${userId}`,
-			{
-				favoriteCourses: favoriteCourses
-			}
-		)
+		await axios.put(`${API_URL}/${userId}`, {
+			favoriteCourses: favoriteCourses
+		})
 	} catch (error) {
 		return error
 	}
