@@ -9,6 +9,7 @@ import UserProfilePage from '../views/UserProfilePage.vue'
 import DefaultLayout from '../layouts/DefaultLayout.vue'
 import ContactsPage from '@/views/ContactsPage.vue'
 import CoursePage from '@/views/CoursePage.vue'
+import AdminLayout from '@/layouts/AdminLayout.vue'
 
 const routes = [
 	{
@@ -29,7 +30,7 @@ const routes = [
 	},
 	{
 		path: '/admin',
-		component: DefaultLayout, // Можно создать отдельный макет для админки
+		component: AdminLayout,
 		children: [
 			{
 				path: '',
@@ -48,26 +49,14 @@ const router = createRouter({
 	routes
 })
 
-// Пример навигационной охраны (для имитации защиты маршрутов)
 router.beforeEach((to, from, next) => {
 	const authStore = useAuthStore()
 	const isAuthenticated = authStore.isAuthenticated
 
 	if (to.meta.requiresAuth && !isAuthenticated) {
-		// Вместо перенаправления на страницу логина, открываем модальное окно
-		// Можно сохранить to.fullPath, чтобы после успешного логина перенаправить пользователя
-		// Например, в Pinia Store: authStore.setRedirectPath(to.fullPath);
 		authStore.openLoginModal(to.fullPath)
-		// Остаемся на текущей странице (или перенаправляем на главную, если текущая страница требует авторизации)
-		// next(false); // Отменяет текущую навигацию
-		// Или:
-		next(false) // Перенаправить на домашнюю страницу, если требуется авторизация, но пользователь не авторизован
-	}
-	// Логика requiresGuest больше не нужна, так как нет отдельных страниц логина/регистрации
-	// else if (to.meta.requiresGuest && isAuthenticated) {
-	//   next({ name: 'home' });
-	// }
-	else {
+		next(false)
+	} else {
 		next()
 	}
 })

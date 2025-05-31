@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Админ-панель - Бригантина надежды</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --primary: #4361ee;
@@ -465,23 +468,23 @@
                 width: 80px;
                 overflow: hidden;
             }
-            
-            .sidebar-title span, 
+
+            .sidebar-title span,
             .menu-text,
             .menu-badge {
                 display: none;
             }
-            
+
             .menu-item {
                 justify-content: center;
                 padding: 15px;
             }
-            
+
             .menu-item i {
                 margin-right: 0;
                 font-size: 1.2rem;
             }
-            
+
             .main-content {
                 margin-left: 80px;
             }
@@ -491,21 +494,21 @@
             .search-bar {
                 width: 200px;
             }
-            
+
             .user-name {
                 display: none;
             }
-            
+
             .page-header {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            
+
             .page-actions {
                 margin-top: 15px;
                 width: 100%;
             }
-            
+
             .page-actions .button {
                 width: 100%;
                 margin-left: 0;
@@ -519,23 +522,23 @@
                 position: fixed;
                 z-index: 1000;
             }
-            
+
             .sidebar.active {
                 transform: translateX(0);
             }
-            
+
             .main-content {
                 margin-left: 0;
             }
-            
+
             .top-nav {
                 padding: 15px;
             }
-            
+
             .search-bar {
                 display: none;
             }
-            
+
             .mobile-menu-btn {
                 display: block;
                 background: none;
@@ -548,6 +551,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -557,42 +561,11 @@
                 <span>Админ-панель</span>
             </div>
         </div>
-        
+
         <div class="sidebar-menu">
-            <a href="#" class="menu-item active">
-                <i class="fas fa-tachometer-alt"></i>
-                <span class="menu-text">Дашборд</span>
-            </a>
-            
-            <a href="#" class="menu-item">
-                <i class="fas fa-users"></i>
-                <span class="menu-text">Пользователи</span>
-                <span class="menu-badge">5</span>
-            </a>
-            
             <a href="#" class="menu-item">
                 <i class="fas fa-book"></i>
                 <span class="menu-text">Курсы</span>
-            </a>
-            
-            <a href="#" class="menu-item">
-                <i class="fas fa-calendar-alt"></i>
-                <span class="menu-text">Расписание</span>
-            </a>
-            
-            <a href="#" class="menu-item">
-                <i class="fas fa-file-certificate"></i>
-                <span class="menu-text">Сертификаты</span>
-            </a>
-            
-            <a href="#" class="menu-item">
-                <i class="fas fa-chart-line"></i>
-                <span class="menu-text">Аналитика</span>
-            </a>
-            
-            <a href="#" class="menu-item">
-                <i class="fas fa-cog"></i>
-                <span class="menu-text">Настройки</span>
             </a>
         </div>
     </div>
@@ -601,26 +574,13 @@
     <div class="main-content">
         <!-- Top Navigation -->
         <nav class="top-nav">
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-            
             <div class="search-bar">
                 <i class="fas fa-search"></i>
                 <input type="text" placeholder="Поиск...">
             </div>
-            
+
             <div class="user-menu">
-                <div class="notification">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge">3</span>
-                </div>
-                
-                <div class="user-profile">
-                    <img src="https://ui-avatars.com/api/?name=Админ+Админов&background=4361ee&color=fff" alt="Аватар" class="user-avatar">
-                    <span class="user-name">Админ Админов</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
+                <button>Выход</button>
             </div>
         </nav>
 
@@ -629,7 +589,7 @@
             <div class="page-header">
                 <h1 class="page-title">Управление курсами</h1>
                 <div class="page-actions">
-                    <a href="file:///E:/4%20курс/ПП%2009.01/сайт/добавление%20курсов.html?new=true" class="button">
+                    <a class="button">
                         <i class="fas fa-plus"></i> Добавить курс
                     </a>
                 </div>
@@ -641,16 +601,13 @@
                     <h2 class="card-title">Список курсов</h2>
                     <a href="#" class="button button-outline button-sm">Просмотреть все</a>
                 </div>
-                
+
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Название</th>
-                                <th>Преподаватель</th>
-                                <th>Учащиеся</th>
-                                <th>Статус</th>
                                 <th>Действия</th>
                             </tr>
                         </thead>
@@ -658,56 +615,8 @@
                             <tr>
                                 <td>#C24</td>
                                 <td>Основы делопроизводства</td>
-                                <td>Ирина Соколова</td>
-                                <td>124</td>
-                                <td><span class="status active">Активен</span></td>
                                 <td>
-                                    <a href="file:///E:/4%20курс/ПП%2009.01/сайт/добавление%20курсов.html?id=C24" class="action-btn edit" title="Редактировать">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <button class="action-btn delete" title="Удалить">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#C23</td>
-                                <td>Навыки эффективной коммуникации</td>
-                                <td>Алексей Петров</td>
-                                <td>89</td>
-                                <td><span class="status active">Активен</span></td>
-                                <td>
-                                    <a href="edit-course.html?id=C23" class="action-btn edit" title="Редактировать">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <button class="action-btn delete" title="Удалить">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#C22</td>
-                                <td>Оптимизация рабочего времени</td>
-                                <td>Елена Иванова</td>
-                                <td>45</td>
-                                <td><span class="status active">Активен</span></td>
-                                <td>
-                                    <a href="edit-course.html?id=C22" class="action-btn edit" title="Редактировать">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <button class="action-btn delete" title="Удалить">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#C21</td>
-                                <td>Управление проектами</td>
-                                <td>Дмитрий Смирнов</td>
-                                <td>67</td>
-                                <td><span class="status pending">На модерации</span></td>
-                                <td>
-                                    <a href="edit-course.html?id=C21" class="action-btn edit" title="Редактировать">
+                                    <a class="action-btn edit" title="Редактировать">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <button class="action-btn delete" title="Удалить">
@@ -721,36 +630,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('active');
-        });
-
-        // Delete button confirmation
-        document.querySelectorAll('.action-btn.delete').forEach(btn => {
-            btn.addEventListener('click', function() {
-                if (confirm('Вы уверены, что хотите удалить этот курс?')) {
-                    // Here would be actual delete request
-                    const row = this.closest('tr');
-                    row.style.opacity = '0.5';
-                    row.style.backgroundColor = '#fff5f5';
-                    
-                    // Simulate delete action
-                    setTimeout(() => {
-                        row.remove();
-                        alert('Курс успешно удален');
-                    }, 500);
-                }
-            });
-        });
-
-        // Simulate loading data
-        setTimeout(() => {
-            // This would be replaced with actual data loading
-            console.log('Data loaded');
-        }, 1000);
-    </script>
 </body>
+
 </html>

@@ -36,6 +36,29 @@ const fetchUser = async token => {
 	return { user, error }
 }
 
+const getRole = async token => {
+	let role = null
+	let error = null
+
+	try {
+		const response = await axios.get(API_URL, {
+			params: { token }
+		})
+		const users = response.data
+
+		if (users.length === 0) {
+			error = 'Пользователь не найден'
+			return { role, error }
+		}
+
+		role = users[0].role
+	} catch (err) {
+		error = err
+	}
+
+	return { role, error }
+}
+
 const authorization = async (email, password) => {
 	let user = null
 	let error = null
@@ -135,4 +158,11 @@ const saveFavoriteCourses = async (userId, favoriteCourses) => {
 	}
 }
 
-export { fetchUser, authorization, registration, update, saveFavoriteCourses }
+export {
+	fetchUser,
+	getRole,
+	authorization,
+	registration,
+	update,
+	saveFavoriteCourses
+}

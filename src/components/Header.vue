@@ -2,7 +2,7 @@
 	<div>
 		<div class="header">
 			<!--Content before waves-->
-			<div class="inner-header flex" style="height: auto" v-resize="onResize">
+			<div class="inner-header flex" style="height: auto">
 				<div class="hero-content">
 					<h1>Система обучения ПРООМИ "Бригантина надежды"</h1>
 					<p>Ваш путь к профессиональному развитию</p>
@@ -21,6 +21,9 @@
 								<el-dropdown-menu>
 									<el-dropdown-item>
 										<router-link to="/profile">Личный кабинет</router-link>
+									</el-dropdown-item>
+									<el-dropdown-item v-if="isAdmin.value">
+										<router-link to="/admin">Админ-панель</router-link>
 									</el-dropdown-item>
 									<el-dropdown-item divided>
 										<div style="display: flex; justify-content: center">
@@ -88,11 +91,24 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth'
 import { useCoursesStore } from '@/stores/courses'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router' // Импортируем useRouter для перенаправления после выхода
 
 const authStore = useAuthStore()
 const coursesStore = useCoursesStore()
 const router = useRouter()
+
+const isAdmin = computed(() => {
+	const isAdminRef = ref(false)
+
+	if (authStore.isAuthenticated) {
+		authStore.isAdmin().then(result => {
+			isAdminRef.value = result
+		})
+	}
+
+	return isAdminRef
+})
 
 const handleLogout = async () => {
 	await authStore.logout()

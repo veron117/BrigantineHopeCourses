@@ -16,6 +16,49 @@ const getCourses = async () => {
 	return { courses, error }
 }
 
+const createCourse = async courseData => {
+	let course = null
+	let error = null
+
+	try {
+		const response = await axios.post(`${API_URL}/courses`, courseData)
+		course = response.data
+	} catch (err) {
+		error = err.message || 'Ошибка при создании курса'
+	}
+
+	return { course, error }
+}
+
+const deleteCourse = async courseId => {
+	let error = null
+
+	try {
+		await axios.delete(`${API_URL}/courses/${courseId}`)
+	} catch (err) {
+		error = err.message || 'Ошибка при удалении курса'
+	}
+
+	return { success: !error, error }
+}
+
+const updateCourse = async (courseId, courseData) => {
+	let error = null
+	let course = null
+
+	try {
+		const response = await axios.put(
+			`${API_URL}/courses/${courseId}`,
+			courseData
+		)
+		course = response.data
+	} catch (err) {
+		error = err.message || 'Ошибка при обновлении курса'
+	}
+
+	return { success: !error, course, error }
+}
+
 const getLessons = async coursId => {
 	let lessons = []
 	let error = null
@@ -32,4 +75,4 @@ const getLessons = async coursId => {
 	return { lessons, error }
 }
 
-export { getCourses, getLessons }
+export { getCourses, createCourse, getLessons, deleteCourse, updateCourse }

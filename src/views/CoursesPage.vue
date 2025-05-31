@@ -32,17 +32,14 @@ import { onMounted } from 'vue'
 import { useCoursesStore } from '@/stores/courses'
 import { ref, computed } from 'vue'
 
-// реактивная строка поиска
-const searchQuery = ref('')
-
 const coursesStore = useCoursesStore()
+const searchQuery = ref('')
 
 const loadCourses = () => {
 	coursesStore.fetchCourses()
 }
 
 onMounted(() => {
-	// Можно автоматически загружать при монтировании компонента
 	loadCourses()
 })
 
@@ -110,13 +107,13 @@ const filteredCourses = computed(() => {
 		margin-bottom: 20px;
 		padding: 0 8px;
 	}
-	
+
 	.search-box input {
 		padding: 12px 16px 12px 40px;
 		font-size: 0.9rem;
 		border-radius: 25px;
 	}
-	
+
 	.search-box i {
 		left: 15px;
 		font-size: 0.9rem;

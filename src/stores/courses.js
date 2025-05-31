@@ -1,6 +1,12 @@
 // stores/courses.js
 import { defineStore } from 'pinia'
-import { getCourses, getLessons } from '@/utils/coursesApi'
+import {
+	getCourses,
+	getLessons,
+	createCourse,
+	deleteCourse,
+	updateCourse
+} from '@/utils/coursesApi'
 import { saveFavoriteCourses } from '@/utils/usersApi'
 
 export const useCoursesStore = defineStore('courses', {
@@ -29,6 +35,58 @@ export const useCoursesStore = defineStore('courses', {
 			}
 
 			this.loading = false
+		},
+		async createCourse(courseData) {
+			this.loading = true
+			this.error = null
+
+			const { course, error } = await createCourse(courseData)
+
+			if (error) {
+				this.error = error
+				return { success: false, error }
+			}
+
+			this.courses.push(course)
+			this.loading = false
+			return { success: true, course }
+		},
+		async deleteCourse(courseId) {
+			this.loading = true
+			this.error = null
+
+			const { success, error } = await deleteCourse(courseId)
+
+			if (error) {
+				this.error = error
+				return { success: false, error }
+			}
+
+			this.courses = this.courses.filter(course => course.id !== courseId)
+			this.loading = false
+			return { success: true }
+		},
+		async updateCourse(courseId, courseData) {
+			this.loading = true
+			this.error = null
+
+			const { success, course, error } = await updateCourse(
+				courseId,
+				courseData
+			)
+
+			if (error) {
+				this.error = error
+				return { success: false, error }
+			}
+
+			const index = this.courses.findIndex(c => c.id === courseId)
+			if (index !== -1) {
+				this.courses[index] = course
+			}
+
+			this.loading = false
+			return { success: true }
 		},
 		async fetchLessons(courseId) {
 			this.loading = true

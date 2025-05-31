@@ -6,7 +6,8 @@ import {
 	fetchUser,
 	authorization,
 	registration,
-	update
+	update,
+	getRole
 } from '@/utils/usersApi'
 
 export const useAuthStore = defineStore('auth', {
@@ -17,8 +18,7 @@ export const useAuthStore = defineStore('auth', {
 		loading: false,
 		message: null,
 		redirectPath: null,
-		isModalOpen: false,
-		modalType: null
+		isModalOpen: false
 	}),
 	persist: true,
 	actions: {
@@ -76,6 +76,12 @@ export const useAuthStore = defineStore('auth', {
 			this.closeModal()
 
 			this.loading = false
+		},
+
+		async isAdmin() {
+			const { role, error } = await getRole(this.token)
+
+			return role === 'admin'
 		},
 
 		async register(userData) {
