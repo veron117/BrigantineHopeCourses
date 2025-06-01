@@ -34,6 +34,13 @@
 							<td>{{ course.title }}</td>
 							<td>
 								<a
+									class="action-btn lessons"
+									title="Уроки"
+									@click="navigateToLessons(course)"
+								>
+									<i class="fas fa-book"></i>
+								</a>
+								<a
 									class="action-btn edit"
 									title="Редактировать"
 									@click="handleEditClick(course)"
@@ -78,12 +85,14 @@
 
 <script setup>
 import { onMounted, ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useCoursesStore } from '@/stores/courses'
-import AddCourseModal from '@/components/AddCourseModal.vue'
-import EditCourseModal from '@/components/EditCourseModal.vue'
-import DeleteCourseModal from '@/components/DeleteCourseModal.vue'
+import AddCourseModal from '@/components/courses/AddCourseModal.vue'
+import EditCourseModal from '@/components/courses/EditCourseModal.vue'
+import DeleteCourseModal from '@/components/courses/DeleteCourseModal.vue'
 
 const coursesStore = useCoursesStore()
+const router = useRouter()
 const searchQuery = ref('')
 const showAddModal = ref(false)
 const showEditModal = ref(false)
@@ -114,6 +123,10 @@ const handleDeleteClick = course => {
 
 const handleCourseDeleted = () => {
 	loadCourses()
+}
+
+const navigateToLessons = course => {
+	router.push(`/admin/courses/${course.id}/lessons`)
 }
 
 onMounted(() => {
@@ -270,8 +283,13 @@ const filteredCourses = computed(() => {
 	margin-right: 5px;
 }
 
-.action-btn:hover {
-	background: var(--primary);
+.action-btn.lessons {
+	background: rgba(52, 211, 153, 0.1);
+	color: #34d399;
+}
+
+.action-btn.lessons:hover {
+	background: #34d399;
 	color: var(--white);
 }
 

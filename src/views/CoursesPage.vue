@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import CourseCard from '@/components/CourseCard.vue'
+import CourseCard from '@/components/courses/CourseCard.vue'
 import { onMounted } from 'vue'
 import { useCoursesStore } from '@/stores/courses'
 import { ref, computed } from 'vue'

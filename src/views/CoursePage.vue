@@ -62,7 +62,11 @@
 		<div class="course-plan">
 			<h1 class="course-plan__title">План курса</h1>
 			<div class="course-plan__content">
-				<el-collapse expand-icon-position="left" accordion>
+				<el-collapse
+					expand-icon-position="left"
+					accordion
+					v-if="lessons.length > 0"
+				>
 					<el-collapse-item
 						v-for="(lesson, index) in lessons"
 						:key="lesson.id"
@@ -86,6 +90,7 @@
 						</div>
 					</el-collapse-item>
 				</el-collapse>
+				<el-empty description="Уроков нет" v-else />
 			</div>
 		</div>
 	</div>
@@ -95,11 +100,13 @@
 </template>
 <script setup>
 import { useCoursesStore } from '@/stores/courses'
+import { useLessonsStore } from '@/stores/lessons'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const coursesStore = useCoursesStore()
+const lessonsStore = useLessonsStore()
 const courseId = route.params.id
 
 const course = coursesStore.getCourseById(courseId)
@@ -107,7 +114,8 @@ const course = coursesStore.getCourseById(courseId)
 const lessons = ref([])
 
 onMounted(async () => {
-	lessons.value = await coursesStore.fetchLessons(courseId)
+	await lessonsStore.fetchLessons(courseId)
+	lessons.value = lessonsStore.lessons
 })
 </script>
 <style scoped>

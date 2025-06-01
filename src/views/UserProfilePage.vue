@@ -56,7 +56,7 @@
 	</div>
 </template>
 <script setup>
-import CourseCard from '@/components/CourseCard.vue'
+import CourseCard from '@/components/courses/CourseCard.vue'
 import { computed } from 'vue'
 import { useCoursesStore } from '@/stores/courses'
 import { useAuthStore } from '@/stores/auth'

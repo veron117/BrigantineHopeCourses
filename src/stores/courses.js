@@ -2,7 +2,6 @@
 import { defineStore } from 'pinia'
 import {
 	getCourses,
-	getLessons,
 	createCourse,
 	deleteCourse,
 	updateCourse
@@ -87,20 +86,6 @@ export const useCoursesStore = defineStore('courses', {
 
 			this.loading = false
 			return { success: true }
-		},
-		async fetchLessons(courseId) {
-			this.loading = true
-			this.error = null
-
-			const { lessons, error } = await getLessons(courseId)
-
-			if (error) {
-				this.error = error
-			}
-
-			this.loading = false
-
-			return lessons
 		},
 		getCourseById(courseId) {
 			return this.courses.find(course => course.id === courseId)

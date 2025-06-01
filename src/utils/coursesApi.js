@@ -15,7 +15,6 @@ const getCourses = async () => {
 
 	return { courses, error }
 }
-
 const createCourse = async courseData => {
 	let course = null
 	let error = null
@@ -59,20 +58,4 @@ const updateCourse = async (courseId, courseData) => {
 	return { success: !error, course, error }
 }
 
-const getLessons = async coursId => {
-	let lessons = []
-	let error = null
-
-	try {
-		const response = await axios.get(`${API_URL}/lessons`, {
-			params: { coursId }
-		})
-		lessons = response.data
-	} catch (err) {
-		error = err.message || 'Ошибка при загрузке данных'
-	}
-
-	return { lessons, error }
-}
-
-export { getCourses, createCourse, getLessons, deleteCourse, updateCourse }
+export { getCourses, createCourse, deleteCourse, updateCourse }

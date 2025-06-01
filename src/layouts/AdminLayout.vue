@@ -10,7 +10,7 @@
 			</div>
 
 			<div class="sidebar-menu">
-				<a href="#" class="menu-item">
+				<a class="menu-item" @click="router.push('/admin/courses')">
 					<i class="fas fa-book"></i>
 					<span class="menu-text">Курсы</span>
 				</a>
@@ -96,6 +96,7 @@ body {
 	text-decoration: none;
 	transition: var(--transition);
 	border-left: 3px solid transparent;
+	cursor: pointer;
 }
 
 .menu-item:hover {

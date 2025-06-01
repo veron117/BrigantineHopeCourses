@@ -4,8 +4,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import HomePage from '../views/HomePage.vue'
 import CoursesPage from '../views/CoursesPage.vue'
-import AdminDashboardPage from '../views/admin/AdminDashboardPage.vue'
 import UserProfilePage from '../views/UserProfilePage.vue'
+import AdminCoursesPage from '@/views/admin/AdminCoursesPage.vue'
+import AdminLessonsPage from '@/views/admin/AdminLessonsPage.vue'
 import DefaultLayout from '../layouts/DefaultLayout.vue'
 import ContactsPage from '@/views/ContactsPage.vue'
 import CoursePage from '@/views/CoursePage.vue'
@@ -33,15 +34,19 @@ const routes = [
 		component: AdminLayout,
 		children: [
 			{
-				path: '',
-				name: 'adminDashboard',
-				component: AdminDashboardPage,
+				path: 'courses',
+				name: 'adminCourses',
+				component: AdminCoursesPage,
+				meta: { requiresAuth: true, requiresAdmin: true }
+			},
+			{
+				path: 'courses/:courseId/lessons',
+				name: 'adminLessons',
+				component: AdminLessonsPage,
 				meta: { requiresAuth: true, requiresAdmin: true }
 			}
-			// Добавить другие маршруты для админки (управление курсами, пользователями и т.д.)
 		]
 	}
-	// Добавить маршрут для страницы 404
 ]
 
 const router = createRouter({

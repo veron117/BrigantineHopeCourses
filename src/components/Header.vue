@@ -23,7 +23,7 @@
 										<router-link to="/profile">Личный кабинет</router-link>
 									</el-dropdown-item>
 									<el-dropdown-item v-if="isAdmin.value">
-										<router-link to="/admin">Админ-панель</router-link>
+										<router-link to="/admin/courses">Админ-панель</router-link>
 									</el-dropdown-item>
 									<el-dropdown-item divided>
 										<div style="display: flex; justify-content: center">
