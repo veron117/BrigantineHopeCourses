@@ -23,7 +23,7 @@
 					</div>
 					<div class="profile-detail">
 						<i class="fas fa-calendar-alt"></i>
-						<span>Дата регистрации:{{ formatDate(user.createdAt) }}</span>
+						<span>Дата регистрации: {{ formatDate(user.createdAt) }}</span>
 					</div>
 				</div>
 
@@ -186,12 +186,23 @@ p {
 	display: flex;
 	align-items: center;
 	margin-bottom: 12px;
+	height: 24px;
+	overflow: hidden;
 }
 
 .profile-detail i {
 	width: 24px;
 	color: var(--accent);
 	margin-right: 10px;
+	flex-shrink: 0;
+}
+
+.profile-detail span {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	min-width: 0;
+	flex: 1;
 }
 
 .course-list {
