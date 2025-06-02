@@ -1,11 +1,16 @@
 <template>
-	<div>
+	<header>
 		<div class="header">
+			<div class="hero-logo">
+				<img src="@/assets/logo.png" alt="Бригантина надежды" />
+			</div>
 			<!--Content before waves-->
 			<div class="inner-header flex" style="height: auto">
 				<div class="hero-content">
-					<h1>Система обучения ПРООМИ "Бригантина надежды"</h1>
-					<p>Ваш путь к профессиональному развитию</p>
+					<div class="hero-text">
+						<h1>Система обучения ПРООМИ "Бригантина надежды"</h1>
+						<p>Ваш путь к профессиональному развитию</p>
+					</div>
 				</div>
 				<div class="profile-icon">
 					<template v-if="!authStore.isAuthenticated">
@@ -15,7 +20,11 @@
 						</div>
 					</template>
 					<template v-else>
-						<el-dropdown placement="bottom" style="cursor: pointer">
+						<el-dropdown
+							placement="bottom"
+							style="cursor: pointer"
+							trigger="click"
+						>
 							<el-avatar size="large" src="profileAvatar.png" />
 							<template #dropdown>
 								<el-dropdown-menu>
@@ -78,14 +87,16 @@
 			</div>
 			<!--Waves end-->
 		</div>
-		<nav>
+	</header>
+	<nav class="sticky-nav">
+		<div class="nav-container">
 			<ul>
 				<li><router-link to="/">Главная</router-link></li>
 				<li><router-link to="/courses">Курсы</router-link></li>
 				<li><router-link to="/contacts">Контакты</router-link></li>
 			</ul>
-		</nav>
-	</div>
+		</div>
+	</nav>
 </template>
 
 <script setup>
@@ -119,6 +130,11 @@ const handleLogout = async () => {
 </script>
 
 <style scoped>
+header {
+	display: block;
+	width: 100%;
+}
+
 .header {
 	position: relative;
 	text-align: center;
@@ -198,12 +214,24 @@ p {
 	color: white;
 }
 
-nav {
+.sticky-nav {
 	background-color: var(--white);
 	color: var(--dark);
 	padding: 15px 0;
-	margin-top: 0px;
+	margin: 0;
 	box-shadow: var(--shadow);
+	position: sticky;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	width: 100%;
+}
+
+.nav-container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
 }
 
 nav ul {
@@ -272,6 +300,34 @@ a:hover::after {
 	}
 	100% {
 		transform: translate3d(85px, 0, 0);
+	}
+}
+
+.hero-content {
+	position: relative;
+	width: 100vh;
+	margin: 0 auto;
+}
+
+.hero-logo {
+	display: none;
+}
+
+.hero-logo img {
+	max-height: 100px;
+	width: auto;
+	position: absolute;
+	left: 20px;
+	top: 20px;
+}
+
+@media (max-width: 768px) {
+	.hero-text {
+		display: none;
+	}
+
+	.hero-logo {
+		display: block;
 	}
 }
 </style>
